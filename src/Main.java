@@ -15,11 +15,43 @@ public class Main extends Canvas implements Runnable{
     private boolean running = false;
     private Thread thread;
 
+    private BufferedImage backround1;
     private BufferedImage backround;
+    private BufferedImage camera;
+    private BufferedImage nft1;
 
+    private int cameraX = 850;
+    private int cameraY = 450;
+    private int cameraVX = 0;
+    private int cameraVY = 0;
+    private int frames = 0;
     public Main() {
         try {
+            backround1 = ImageIO.read(new File("backround1.jpg"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             backround = ImageIO.read(new File("backround.jpg"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            camera = ImageIO.read(new File("camera.png"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            nft1 = ImageIO.read(new File("nft1.png"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -54,11 +86,24 @@ public class Main extends Canvas implements Runnable{
     }
 
     public void draw(Graphics g) {
-        g.clearRect(100,100,getWidth(),getHeight());
-        g.drawImage(backround, 1920, 1080, backround.getWidth(), backround.getHeight(), null);
+
+        if (frames < 75) {
+            g.drawImage(backround1, 0, 0, backround1.getWidth(), backround1.getHeight(), null);
+        } else  g.clearRect(0,0, getWidth(), getHeight()); {
+        }  if (frames < 175){
+            g.drawImage(backround, 0, 0, backround.getWidth(), backround.getHeight(), null);
+        }
+
+
+        g.drawImage(nft1, 200, 200, nft1.getWidth()/3, nft1.getHeight()/3, null);
+        g.drawImage(camera, cameraX, cameraY, camera.getWidth()/15, camera.getHeight()/15, null);
+        frames++;
     }
 
     private void update() {
+        cameraX += cameraVX;
+
+        cameraY += cameraVY;
     }
 
     public static void main(String[] args) {
@@ -82,7 +127,7 @@ public class Main extends Canvas implements Runnable{
     }
 
     public void run() {
-        double ns = 1000000000.0 / 25.0;
+        double ns = 1000000000.0 / 60.0;
         double delta = 0;
         long lastTime = System.nanoTime();
 
@@ -144,10 +189,41 @@ public class Main extends Canvas implements Runnable{
 
         @Override
         public void keyPressed(KeyEvent e) {
+            if (e.getKeyChar() == 'w') {
+                cameraVY = -13;
+            }
+            if (e.getKeyChar() == 's') {
+                cameraVY = 13;
+                }
+
+            if (e.getKeyChar() == 'd') {
+                cameraVX = 13;
+            }
+
+            if (e.getKeyChar() == 'a') {
+                cameraVX = -13;
+            }
+
+
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
+
+            if (e.getKeyChar() == 'w') {
+                cameraVY = 0;
+            }
+            if (e.getKeyChar() == 's') {
+                cameraVY = 0;
+            }
+
+            if (e.getKeyChar() == 'd') {
+                cameraVX = 0;
+            }
+
+            if (e.getKeyChar() == 'a') {
+                cameraVX = 0;
+            }
         }
     }
 }
