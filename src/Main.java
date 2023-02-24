@@ -20,11 +20,23 @@ public class Main extends Canvas implements Runnable{
     private BufferedImage camera;
     private BufferedImage nft1;
 
-    private int cameraX = 850;
+    private BufferedImage plc;
+
+    private BufferedImage nft2;
+
+    private int cameraX = 900;
     private int cameraY = 450;
     private int cameraVX = 0;
     private int cameraVY = 0;
     private int frames = 0;
+
+
+    private int nftVY = 5;
+    private int nftVX = 5;
+
+    private int nftX = 500;
+    private int nftY = 500;
+
     public Main() {
         try {
             backround1 = ImageIO.read(new File("backround1.jpg"));
@@ -44,6 +56,15 @@ public class Main extends Canvas implements Runnable{
 
         try {
             camera = ImageIO.read(new File("camera.png"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        try {
+            plc = ImageIO.read(new File("police.png"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -88,14 +109,17 @@ public class Main extends Canvas implements Runnable{
     public void draw(Graphics g) {
 
         if (frames < 75) {
-            g.drawImage(backround1, 0, 0, backround1.getWidth(), backround1.getHeight(), null);
+            g.drawImage(backround, 0, 0, backround.getWidth(), backround.getHeight(), null);
+
         } else  g.clearRect(0,0, getWidth(), getHeight()); {
         }  if (frames < 175){
-            g.drawImage(backround, 0, 0, backround.getWidth(), backround.getHeight(), null);
+            g.drawImage(backround1, 0, 0, backround1.getWidth(), backround1.getHeight(), null);
         }
 
 
-        g.drawImage(nft1, 200, 200, nft1.getWidth()/3, nft1.getHeight()/3, null);
+        g.drawImage(nft1, nftX, nftY, nft1.getWidth()/3, nft1.getHeight()/3, null);
+
+        g.drawImage(plc, 300, 500, plc.getWidth()/6, plc.getHeight()/6, null);
         g.drawImage(camera, cameraX, cameraY, camera.getWidth()/15, camera.getHeight()/15, null);
         frames++;
     }
@@ -104,6 +128,10 @@ public class Main extends Canvas implements Runnable{
         cameraX += cameraVX;
 
         cameraY += cameraVY;
+
+        nftX += nftVX;
+
+        nftY += nftVY;
     }
 
     public static void main(String[] args) {

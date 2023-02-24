@@ -20,3 +20,10 @@ Fixade variabler
 
 Nu försöker jag göra en bakrund som ändras med tiden så att det inte bara är samma tråkiga.
 Det jag behöver hjälp med är att fixa en loop som funkar.
+
+
+2023-02-24
+
+Ny spellide, pong. Fixar så att objektet ska studsa och röra sig me dhatighet
+Ska fixa hitbox för objekten
+Kanske byta backrund varje gång om man har extra tid?
