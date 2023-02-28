@@ -24,18 +24,24 @@ public class Main extends Canvas implements Runnable{
 
     private BufferedImage nft2;
 
-    private int cameraX = 900;
+    private int cameraX = 200;
     private int cameraY = 450;
     private int cameraVX = 0;
     private int cameraVY = 0;
     private int frames = 0;
 
 
-    private int nftVY = 5;
-    private int nftVX = 5;
+    private int plcVY = 0;
+    private int plcVX = 0;
 
-    private int nftX = 500;
-    private int nftY = 500;
+    private int plcX = 1500;
+    private int plcY = 450;
+
+    private int nftVY = 0;
+    private int nftVX = 0;
+
+    private int nftX = 900;
+    private int nftY = 400;
 
     public Main() {
         try {
@@ -61,7 +67,6 @@ public class Main extends Canvas implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         try {
             plc = ImageIO.read(new File("police.png"));
@@ -117,9 +122,9 @@ public class Main extends Canvas implements Runnable{
         }
 
 
-        g.drawImage(nft1, nftX, nftY, nft1.getWidth()/3, nft1.getHeight()/3, null);
+        g.drawImage(nft1, nftX, nftY, nft1.getWidth()/4, nft1.getHeight()/4, null);
 
-        g.drawImage(plc, 300, 500, plc.getWidth()/6, plc.getHeight()/6, null);
+        g.drawImage(plc, plcX, plcY, plc.getWidth()/6, plc.getHeight()/6, null);
         g.drawImage(camera, cameraX, cameraY, camera.getWidth()/15, camera.getHeight()/15, null);
         frames++;
     }
@@ -128,6 +133,10 @@ public class Main extends Canvas implements Runnable{
         cameraX += cameraVX;
 
         cameraY += cameraVY;
+
+        plcX += plcVX;
+
+        plcY += plcVY;
 
         nftX += nftVX;
 
@@ -209,6 +218,8 @@ public class Main extends Canvas implements Runnable{
         }
     }
 
+
+
     public class MyKeyListener implements KeyListener {
 
         @Override
@@ -232,6 +243,21 @@ public class Main extends Canvas implements Runnable{
                 cameraVX = -13;
             }
 
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                plcVY = -13;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                plcVY = 13;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                plcVX = 13;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                plcVX = -13;
+            }
+
 
         }
 
@@ -252,6 +278,23 @@ public class Main extends Canvas implements Runnable{
             if (e.getKeyChar() == 'a') {
                 cameraVX = 0;
             }
+
+            if (e.getKeyCode() == KeyEvent.VK_UP) {
+                plcVY = 0;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                plcVY = 0;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                plcVX = 0;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                plcVX = 0;
+            }
+
+
         }
     }
 }
