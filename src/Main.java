@@ -22,26 +22,25 @@ public class Main extends Canvas implements Runnable{
 
     private BufferedImage plc;
 
-    private BufferedImage nft2;
 
-    private int cameraX = 200;
-    private int cameraY = 450;
     private int cameraVX = 0;
     private int cameraVY = 0;
+
+    private Rectangle hitbox;
+    private Rectangle hitbox2;
+
+    private Rectangle hitbox3;
     private int frames = 0;
 
 
     private int plcVY = 0;
     private int plcVX = 0;
 
-    private int plcX = 1500;
-    private int plcY = 450;
 
-    private int nftVY = 0;
-    private int nftVX = 0;
 
-    private int nftX = 900;
-    private int nftY = 400;
+    private int nftVY = 5;
+    private int nftVX = 5;
+
 
     public Main() {
         try {
@@ -83,6 +82,25 @@ public class Main extends Canvas implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        hitbox = new Rectangle(200, 450, camera.getWidth()/15, camera.getHeight()/15);
+        hitbox2 = new Rectangle(1500, 450, plc.getWidth()/6, plc.getHeight()/6);
+        hitbox3 = new Rectangle(900, 450, nft1.getWidth()/4, nft1.getHeight()/4);
+
+        if (hitbox3.x > getWidth()) {
+            nftVX = -5;
+        }
+        if (hitbox3.x < -20) {
+            nftVX = 5;
+        }
+
+        if (hitbox3.y > getWidth()) {
+            nftVY = -5;
+        }
+        if (hitbox3.x < getHeight()) {
+            nftVY = 5;
+        }
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         // setSize(1920,1080);
         setSize(screenSize);
@@ -113,35 +131,38 @@ public class Main extends Canvas implements Runnable{
 
     public void draw(Graphics g) {
 
-        if (frames < 75) {
-            g.drawImage(backround, 0, 0, backround.getWidth(), backround.getHeight(), null);
+        g.drawImage(backround1, 0, 0, backround1.getWidth(), backround1.getHeight(), null);
+        g.drawImage(nft1, hitbox3.x, hitbox3.y, nft1.getWidth()/4, nft1.getHeight()/4, null);
 
-        } else  g.clearRect(0,0, getWidth(), getHeight()); {
-        }  if (frames < 175){
-            g.drawImage(backround1, 0, 0, backround1.getWidth(), backround1.getHeight(), null);
-        }
-
-
-        g.drawImage(nft1, nftX, nftY, nft1.getWidth()/4, nft1.getHeight()/4, null);
-
-        g.drawImage(plc, plcX, plcY, plc.getWidth()/6, plc.getHeight()/6, null);
-        g.drawImage(camera, cameraX, cameraY, camera.getWidth()/15, camera.getHeight()/15, null);
+        g.drawImage(plc, hitbox2.x, hitbox2.y, plc.getWidth()/6, plc.getHeight()/6, null);
+        g.drawImage(camera, hitbox.x, hitbox.y, camera.getWidth()/15, camera.getHeight()/15, null);
         frames++;
     }
 
     private void update() {
-        cameraX += cameraVX;
+        hitbox.x += cameraVX;
 
-        cameraY += cameraVY;
+        hitbox.y += cameraVY;
 
-        plcX += plcVX;
+        hitbox2.x += plcVX;
 
-        plcY += plcVY;
+        hitbox2.y += plcVY;
 
-        nftX += nftVX;
+        hitbox3.x += nftVX;
 
-        nftY += nftVY;
+        hitbox3.y += nftVY;
+
+        if (hitbox.intersects(hitbox3)) {
+            hitbox3.x = (int) (Math.random()*1920);
+            hitbox3.y = (int) (Math.random()*1080);
+        }
+
+
+     if (hitbox2.intersects(hitbox3)) {
+        hitbox3.x = (int) (Math.random()*1920);
+        hitbox3.y = (int) (Math.random()*1080);
     }
+}
 
     public static void main(String[] args) {
         Main minGrafik = new Main();
