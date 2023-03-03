@@ -27,3 +27,8 @@ Det jag behöver hjälp med är att fixa en loop som funkar.
 Ny spellide, pong. Fixar så att objektet ska studsa och röra sig me dhatighet
 Ska fixa hitbox för objekten
 Kanske byta backrund varje gång om man har extra tid?
+
+2023-03-3
+
+Fixade hitbox på alla 3 objekt och fixade en hatighet på nft1. Och fixade felen som kom när man byter på hitboxen.
+Den vill inte studsa tillbaka från väggen dock. Får jag till det så kan jag avsluta arbetet.
